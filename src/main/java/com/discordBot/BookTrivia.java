@@ -23,7 +23,7 @@ public class BookTrivia {
             if (event.getMessageContent().equalsIgnoreCase("bookworm")) {
                 trivia.makeReq();
 
-                EmbedHelper embed = new EmbedHelper(trivia.getQuestion(), trivia.getCategory(), trivia.getType());
+                EmbedHelper embed = new EmbedHelper(trivia.getQuestion(), trivia.getCategory(), trivia.getType(), trivia.getChoices());
                 event.getChannel().sendMessage(embed.createEmbed());
                 event.getMessage().addReaction("\uD83D\uDC4D");
             }
