@@ -15,12 +15,13 @@ import static java.lang.Boolean.parseBoolean;
 
 public class Trivia {
     private String category;
+    private String type;
     private String question;
     private String correctAns;
 
     public void makeReq(){
         try{
-            URL url = new URL("https://opentdb.com/api.php?amount=1&category=10&type=boolean");
+            URL url = new URL("https://opentdb.com/api.php?amount=1&category=10");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -42,7 +43,9 @@ public class Trivia {
             for(Object triviaObj : nestedArr){
                 JsonObject current = (JsonObject) triviaObj;
                 this.category = current.get("category").getAsString();
-                this.question = current.get("question").getAsString();
+                this.type = current.get("type").getAsString();
+                this.question = current.get("question").getAsString().replaceAll("&#039;", "'");
+               this.question = this.question.replaceAll("&quot;", "\"");
                 this.correctAns = current.get("correct_answer").getAsString();
             }
             connection.disconnect();
@@ -54,6 +57,8 @@ public class Trivia {
     public String getCategory() {
         return this.category;
     }
+
+    public String getType(){return this.type;}
 
     public String getQuestion() {
         return this.question;

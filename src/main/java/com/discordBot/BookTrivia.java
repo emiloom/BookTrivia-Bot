@@ -23,7 +23,7 @@ public class BookTrivia {
             if (event.getMessageContent().equalsIgnoreCase("bookworm")) {
                 trivia.makeReq();
 
-                EmbedHelper embed = new EmbedHelper(trivia.getQuestion(), trivia.getCategory());
+                EmbedHelper embed = new EmbedHelper(trivia.getQuestion(), trivia.getCategory(), trivia.getType());
                 event.getChannel().sendMessage(embed.createEmbed());
                 event.getMessage().addReaction("\uD83D\uDC4D");
             }
@@ -33,7 +33,12 @@ public class BookTrivia {
         api.addMessageCreateListener(replyEvent -> {
             if (replyEvent.getMessageContent().equalsIgnoreCase("Trivia answer: " + trivia.getCorrectAnswer())) {
                 replyEvent.getChannel().sendMessage("You are correct!");
-            } else if (replyEvent.getMessageContent().equalsIgnoreCase("Trivia answer: " + trivia.getIncorrectAnswer())) {
+            }
+            else if (trivia.getType().equals("boolean") && replyEvent.getMessageContent().equalsIgnoreCase("Trivia answer: "+ trivia.getIncorrectAnswer())) {
+                replyEvent.getChannel().sendMessage("Incorrect! The answer is " + trivia.getCorrectAnswer());
+            }
+            else if(replyEvent.getMessageContent().substring(0, 14).equalsIgnoreCase("Trivia answer:")){
+
                 replyEvent.getChannel().sendMessage("Incorrect! The answer is " + trivia.getCorrectAnswer());
             }
         });
