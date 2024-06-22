@@ -3,6 +3,8 @@
 
 **Add bot to server using [this link](https://discord.com/api/oauth2/authorize?client_id=1004848023525937313&permissions=8&scope=bot) and test it out!**
 
+Future improvement: host the bot on a server that can stay on
+
 Questions vary from multiple choice, to true or false.
 
 ## Bookworm
